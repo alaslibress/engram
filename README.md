@@ -46,7 +46,7 @@ Windows, Linux, and other install methods → [docs/INSTALLATION.md](docs/INSTAL
 
 | Agent | One-liner |
 |-------|-----------|
-| Claude Code | `claude plugin marketplace add Gentleman-Programming/engram && claude plugin install engram` |
+| Claude Code | `claude plugin marketplace add Gentleman-Programming/engram && claude plugin install engram` ([Linux troubleshooting](docs/AGENT-SETUP.md#troubleshooting-claude-code-plugin-installation-on-linux)) |
 | OpenCode | `engram setup opencode` |
 | Gemini CLI | `engram setup gemini-cli` |
 | Codex | `engram setup codex` |

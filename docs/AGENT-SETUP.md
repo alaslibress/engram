@@ -104,6 +104,30 @@ With bare MCP, add a [Surviving Compaction](#surviving-compaction-recommended) p
 
 See [Plugins → Claude Code Plugin](PLUGINS.md#claude-code-plugin) for details on what the plugin provides.
 
+### Troubleshooting: Claude Code plugin installation on Linux
+ 
+**`EXDEV: cross-device link not permitted` during plugin install**
+ 
+On Linux systems where `/home` and `/tmp` are on different partitions or filesystems (default on Fedora, RHEL, Arch with LVM, openSUSE, and many Ubuntu Server setups), Claude Code's plugin installer fails because Node.js `fs.rename()` cannot move files across filesystem boundaries.
+ 
+Workaround — redirect the temp directory to the same filesystem as `~/.claude`:
+ 
+```bash
+mkdir -p ~/.cache/claude-tmp
+TMPDIR=~/.cache/claude-tmp claude plugin marketplace add Gentleman-Programming/engram
+TMPDIR=~/.cache/claude-tmp claude plugin install engram
+```
+ 
+Or make it permanent in your shell profile (`~/.bashrc`, `~/.zshrc`):
+ 
+```bash
+export TMPDIR="$HOME/.cache/claude-tmp"
+```
+ 
+This is a known Claude Code issue ([#14799](https://github.com/anthropics/claude-code/issues/14799)) affecting all plugin installations on Linux with separate `/tmp`, not specific to Engram.
+ 
+> **Docker users**: This does not affect Docker containers since the entire filesystem is typically a single overlay mount.
+
 ---
 
 ## Gemini CLI
