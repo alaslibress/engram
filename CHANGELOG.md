@@ -9,6 +9,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 Full release notes with changelogs per version live on the **[GitHub Releases page](https://github.com/Gentleman-Programming/engram/releases)**.
 
 GoReleaser generates them automatically from commits, filtering by type:
+
 - `feat:` / `fix:` / `refactor:` / `chore:` commits appear in the release notes
 - `docs:` / `test:` / `ci:` commits are excluded from the generated changelog
 
@@ -22,6 +23,8 @@ Breaking changes are always marked with a `type:breaking-change` label and docum
 
 ### Pi package (`pi-engram`)
 
+- **fix(plugin):** allow `mem_session_summary` to accept an explicit `project` fallback when automatic project detection is unavailable.
+- **fix(plugin):** fall back to local `.engram/config.json` and surface a clearer version-mismatch diagnostic when the running Engram server lacks `/project/current`.
 - **feat(plugin):** add `gentle-engram` package for Pi marketplace installs, with HTTP event capture, Memory Protocol prompt injection, safe `engram mcp` launcher config, and `pi-engram init` setup helper.
 
 ### Cloud dashboard visual parity (`cloud-dashboard-visual-parity`)
@@ -63,6 +66,7 @@ The `project` argument has been removed from the JSON schemas of 7 MCP write too
 **After:** the project is auto-detected from the server's working directory (cwd). Any `project` argument sent by the LLM is silently discarded.
 
 **Migration:**
+
 - Remove `project` from write tool calls in your agent's memory protocol.
 - Use `mem_current_project` (new tool) to inspect which project Engram will use before writing.
 - If the cwd is ambiguous (multiple git repos), Engram returns a structured error with `available_projects`. Navigate to one of the repos before writing.
